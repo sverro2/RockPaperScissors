@@ -1,8 +1,8 @@
 package RockPaperScissorsContext
 
-import org.scalatest.{BeforeAndAfterEach, FunSuite}
+import org.scalatest.{FunSuite}
 
-class PlayedShapeTest extends FunSuite with BeforeAndAfterEach {
+class PlayedShapeTest extends FunSuite {
 
   val player1: Player = new Player("Player 1")
   val player2: Player = new Player("Player 2")
