@@ -1,13 +1,10 @@
 package RockPaperScissorsContext
 
-import org.scalatest.{BeforeAndAfterEach, FunSuite}
+import org.scalatest.{FunSuite}
 
-/**
-  * Created by sven on 23-10-17.
-  */
 class ShapeTest extends FunSuite {
 
-  test("Rock beats scissors") {
+  test("Rock beats Scissors") {
     assert(Rock.beats(Scissors) === true)
   }
 
