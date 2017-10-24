@@ -1,4 +1,4 @@
-package rockPaperScissorsContext.model
+package RockPaperScissors.rockPaperScissorsContext.model
 
 object Paper extends Shape{
   override def beats(shape: Shape): Boolean = shape match {

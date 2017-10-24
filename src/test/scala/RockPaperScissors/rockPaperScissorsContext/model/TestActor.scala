@@ -1,8 +1,12 @@
 package RockPaperScissors.rockPaperScissorsContext.model
 
-/**
-  * Created by sven on 24-10-17.
-  */
-class TestActor {
+import RockPaperScissors.Util.{Actor, EventBus}
 
+class TestActor(testFunc: Any => Unit) extends Actor {
+  {
+    EventBus.reset()
+    EventBus.connect(this)
+  }
+
+  override def receiveMessage(message: Any): Unit = testFunc(message)
 }

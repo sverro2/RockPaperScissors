@@ -1,4 +1,4 @@
-package rockPaperScissorsContext.model
+package RockPaperScissors.rockPaperScissorsContext.model
 
 class Turn( amountOfTurnsLeft: Int,
             private val previous: Option[Turn] = None,
@@ -10,12 +10,6 @@ class Turn( amountOfTurnsLeft: Int,
       throw new IllegalStateException("Can't add another turn while in the last turn.")
     else
       new Turn(amountOfTurnsLeft - 1, Some(this))
-
-  def getPrevious(amountOfTurnsAgo: Int): Option[Turn] =
-    if(amountOfTurnsAgo > 0)
-      if(previous.isDefined) previous.get.getPrevious(amountOfTurnsAgo - 1) else previous
-    else
-      Some(this)
 
   def addPlayedShape(playedShape: PlayedShape): Turn =
     if (isCompleted) addTurn().addPlayedShape(playedShape)

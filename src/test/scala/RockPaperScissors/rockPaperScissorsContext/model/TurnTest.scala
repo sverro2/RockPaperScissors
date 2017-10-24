@@ -1,7 +1,6 @@
-package RockPaperScissors.rockPaperScissorsContext
+package RockPaperScissors.rockPaperScissorsContext.model
 
 import org.scalatest.FunSuite
-import RockPaperScissors.rockPaperScissorsContext.model._
 
 class TurnTest extends FunSuite {
   val player1 = new HumanPlayer("Player 1")
@@ -57,6 +56,25 @@ class TurnTest extends FunSuite {
     assertThrows[IllegalStateException] { // Result type: Assertion
       turn.calculateTotalScore()
     }
+  }
+
+  test("Not all turns completed") {
+    val turn = new Turn(2, None)
+      .addPlayedShape(playedShape1)
+      .addPlayedShape(playedShape2)
+      .addPlayedShape(playedShape1)
+
+    assert(turn.allTurnsCompleted === false)
+  }
+
+  test("All turns completed") {
+    val turn = new Turn(2, None)
+      .addPlayedShape(playedShape1)
+      .addPlayedShape(playedShape2)
+      .addPlayedShape(playedShape1)
+      .addPlayedShape(playedShape1)
+
+    assert(turn.allTurnsCompleted === true)
   }
 
   test("Calculate total score") {

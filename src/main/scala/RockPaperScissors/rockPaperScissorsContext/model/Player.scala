@@ -1,4 +1,4 @@
-package rockPaperScissorsContext.model
+package RockPaperScissors.rockPaperScissorsContext.model
 
 abstract class Player {
   def name: String

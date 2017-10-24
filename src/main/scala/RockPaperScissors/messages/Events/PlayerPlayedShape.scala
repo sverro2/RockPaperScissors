@@ -1,7 +1,8 @@
-package RockPaperScissors.messages
+package RockPaperScissors.messages.Events
 
-import RockPaperScissors.rockPaperScissorsContext.model.PlayedShape
+import RockPaperScissors.Util.PlayableShape
 
-class PlayerPlayedShape(playedShape: PlayedShape) {
-  def getPlayedShape: PlayedShape = playedShape
+class PlayerPlayedShape(playerName: String, playedShape: PlayableShape.Value) {
+  def getShape: PlayableShape.Value = playedShape
+  def getPlayer = playerName
 }

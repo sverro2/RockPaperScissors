@@ -1,4 +1,4 @@
-package rockPaperScissorsContext.model
+package RockPaperScissors.rockPaperScissorsContext.model
 
 class GameScore(playerOneScore: (Player, Int), playerTwoScore: (Player, Int)) {
 

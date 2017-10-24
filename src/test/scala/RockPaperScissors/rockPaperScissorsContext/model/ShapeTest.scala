@@ -1,7 +1,6 @@
-package RockPaperScissors.rockPaperScissorsContext
+package RockPaperScissors.rockPaperScissorsContext.model
 
 import org.scalatest.FunSuite
-import RockPaperScissors.rockPaperScissorsContext.model.{Paper, Rock, Scissors}
 
 class ShapeTest extends FunSuite {
 

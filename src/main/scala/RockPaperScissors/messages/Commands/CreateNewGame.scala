@@ -1,7 +1,7 @@
-package RockPaperScissors.messages
+package RockPaperScissors.messages.Commands
 
-class CreateNewGame(gameType: GameType.type, playerOneName: String, playerTwoName: String) {
-  def getGameType: GameType.type = gameType
+class CreateNewGame(gameType: GameType.Value, playerOneName: String, playerTwoName: String) {
+  def getGameType: GameType.Value = gameType
   def getPlayerOneName = playerOneName
   def getPlayerTwoName = playerTwoName
 }

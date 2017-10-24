@@ -1,5 +1,6 @@
 package RockPaperScissors.messages.Commands
 
-class ShapeRequested {
-
+class PlayShape(forPlayerName: String) {
+  def getPlayerName = forPlayerName
 }
+

@@ -1,4 +1,4 @@
-package rockPaperScissorsContext.model
+package RockPaperScissors.rockPaperScissorsContext.model
 
 class PlayedShape(private val player: Player, private val shape: Shape) {
 
@@ -11,6 +11,6 @@ class PlayedShape(private val player: Player, private val shape: Shape) {
 
   def getPlayer: Player = player
 
-  override def toString: String = s"${player.getPlayerName}: $shape"
+  override def toString: String = s"${player.getName}: $shape"
 
 }

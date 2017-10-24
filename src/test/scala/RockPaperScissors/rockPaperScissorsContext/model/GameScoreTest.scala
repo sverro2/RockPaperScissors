@@ -1,7 +1,6 @@
-package RockPaperScissors.rockPaperScissorsContext
+package RockPaperScissors.rockPaperScissorsContext.model
 
 import org.scalatest.FunSuite
-import RockPaperScissors.rockPaperScissorsContext.model.{GameScore, HumanPlayer}
 
 class GameScoreTest extends FunSuite {
   val playerOne = new HumanPlayer("Player 1")

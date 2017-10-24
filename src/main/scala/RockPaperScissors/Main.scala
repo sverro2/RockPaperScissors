@@ -1,10 +1,11 @@
-import rockPaperScissorsContext._
-import rockPaperScissorsContext.model._
+package RockPaperScissors
+
+import RockPaperScissors.rockPaperScissorsContext.model._
 
 object Main extends App{
   println("Project test")
-  val player1 = new Player("Player1")
-  val player2 = new Player("Player2")
+  val player1 = new HumanPlayer("Player1")
+  val player2 = new HumanPlayer("Player2")
   val playedShape1 = new PlayedShape(player1, Rock)
   val playedShape2 = new PlayedShape(player2, Paper)
 

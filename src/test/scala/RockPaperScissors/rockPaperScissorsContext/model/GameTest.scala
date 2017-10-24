@@ -1,4 +1,4 @@
-package RockPaperScissors.rockPaperScissorsContext
+package RockPaperScissors.rockPaperScissorsContext.model
 
 import org.scalatest.FunSuite
 
