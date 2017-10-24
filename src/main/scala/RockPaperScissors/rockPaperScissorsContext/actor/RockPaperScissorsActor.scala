@@ -1,12 +1,13 @@
 package RockPaperScissors.rockPaperScissorsContext.actor
 
-import RockPaperScissors.Util.{Actor, EventBus, PlayableShape}
+import RockPaperScissors.Util.{Actor, EventBus}
 import RockPaperScissors.messages.Commands.{CreateNewGame, GameType}
 import RockPaperScissors.messages.Events.PlayerPlayedShape
 import RockPaperScissors.rockPaperScissorsContext.model._
 
 object RockPaperScissorsActor extends Actor{
-  {
+  def apply(): Unit = {
+    EventBus.reset()
     EventBus.connect(this)
   }
 
@@ -14,13 +15,12 @@ object RockPaperScissorsActor extends Actor{
 
   def receiveMessage(message: Any): Unit = message match {
     case message: CreateNewGame => initializeGame(message)
-    case message: PlayerPlayedShape =>
+    case message: PlayerPlayedShape => playShape(message)
     case _ => Unit
   }
 
-  def playShape(message: PlayerPlayedShape): Unit = {
-
-  }
+  def playShape(message: PlayerPlayedShape): Unit =
+    if(currentGame.isDefined) currentGame.get.playShape(message)
 
   def initializeGame(message: CreateNewGame): Unit = {
     val secondPlayer = new NPC(message.getPlayerTwoName)
@@ -28,7 +28,12 @@ object RockPaperScissorsActor extends Actor{
       if (message.getGameType == GameType.PlayerVsComputer) new HumanPlayer(message.getPlayerOneName)
       else new NPC(message.getPlayerOneName)
 
-    currentGame = Some(new Game(firstPlayer, secondPlayer))
+    val firstTurn = new Turn(message.getAmountOfTurns)
+
+    val game = new Game(firstPlayer, secondPlayer, firstTurn)
+
+    currentGame = Some(game)
+    currentGame.get.startTurn()
   }
 
 
