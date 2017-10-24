@@ -4,7 +4,7 @@ import RockPaperScissors.Util.{Actor, EventBus, PlayableShape}
 import RockPaperScissors.messages.Commands.{CreateNewGame, GameType, PlayShape}
 import RockPaperScissors.messages.Events.PlayerPlayedShape
 
-class RockPaperScissorsConsole(private var exit: Boolean = false) extends Actor {
+class RockPaperScissorsConsole(private var exit: Boolean = false) extends Actor with Console {
 
   def start(): Unit = {
     EventBus.connect(this)
@@ -17,7 +17,8 @@ class RockPaperScissorsConsole(private var exit: Boolean = false) extends Actor 
     exit = true
   }
 
-  val defaultActions = HelpAction :: ExitAction :: Nil
+  val defaultActions: List[ConsoleAction] = HelpAction :: ExitAction :: Nil
+  var currentActions: List[ConsoleAction] = defaultActions
 
   override def receiveMessage(message: Any): Unit = message match {
     case message: PlayShape => println("You now have to play something...")
@@ -30,10 +31,17 @@ class RockPaperScissorsConsole(private var exit: Boolean = false) extends Actor 
     println("To exit, use the commando \"exit\"")
   }
 
+  def askHelp(): Unit = {
+    println("Showing help:")
+    defaultActions.foreach(item => printf("%s - %s\n", item.name, item.description))
+  }
+
   def gameLoop(): Unit = {
     println("Please give input: ")
     val userInput = scala.io.StdIn.readLine()
-    defaultActions.exists(_.trigger(this, userInput))
+    val inputFound = defaultActions.exists(_.trigger(this, userInput))
+
+    if(!inputFound) println(s"Input '$userInput' was not recognized... (ask HELP if you need help)")
     if(!exit) gameLoop()
   }
 

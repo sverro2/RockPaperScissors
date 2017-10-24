@@ -36,4 +36,10 @@ class GameTest extends FunSuite with BeforeAndAfterAll{
     val player = game.convertPlayerNameToPlayer("Morty")
     assert(player == playerTwo)
   }
+
+  test("Doesn't create game with players with same name") {
+    assertThrows[IllegalArgumentException] {
+      new Game(playerOne, playerOne)
+    }
+  }
 }

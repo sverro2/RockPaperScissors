@@ -2,14 +2,19 @@ package RockPaperScissors.RockPaperScissorsUI
 
 abstract class ConsoleAction {
   def name: String
-  def description: String
-  def matcher: String
-  def action: RockPaperScissorsConsole => Unit
 
-  def trigger(console: RockPaperScissorsConsole, input: String): Boolean = {
-    val matches = input.matches(matcher)
-    if(matches) action(console)
-    println("trying match")
-    matches
+  def description: String
+
+  def matcher: String
+
+  def matches(input: String): Boolean = input.matches(matcher)
+
+  def action(console: Console): Unit
+
+  def trigger(console: Console, input: String): Boolean = {
+    val isMatching = matches(input)
+    if(isMatching) action(console)
+
+    isMatching
   }
 }
