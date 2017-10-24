@@ -1,10 +1,10 @@
-package RockPaperScissorsContext
+package rockPaperScissorsContext
 
 class GameScore(playerOneScore: (Player, Int), playerTwoScore: (Player, Int)) {
 
-  def getPlayerScore(player: Player) = if(player == playerOneScore._1) playerOneScore._2 else playerTwoScore._2
+  def getPlayerScore(player: Player): Int = if(player == playerOneScore._1) playerOneScore._2 else playerTwoScore._2
 
-  def addToPlayerScore(player: Option[Player]) =
+  def addToPlayerScore(player: Option[Player]): GameScore =
     if(player.isDefined)
       if(player.get == playerOneScore._1) addToPlayerOne()
       else addToPlayerTwo()

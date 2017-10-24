@@ -1,4 +1,4 @@
-package RockPaperScissorsContext
+package rockPaperScissorsContext
 
 import org.scalatest.{FunSuite}
 
@@ -14,6 +14,10 @@ class ShapeTest extends FunSuite {
 
   test("Paper beats Rock") {
     assert(Paper.beats(Rock) === true)
+  }
+
+  test("Paper does not beat Scissors") {
+    assert(Paper.beats(Scissors) === false)
   }
 
   test("Scissors does not beat Rock") {

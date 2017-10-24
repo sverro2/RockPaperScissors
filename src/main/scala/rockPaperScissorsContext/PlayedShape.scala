@@ -1,4 +1,4 @@
-package RockPaperScissorsContext
+package rockPaperScissorsContext
 
 class PlayedShape(private val player: Player, private val shape: Shape) {
 
@@ -9,8 +9,8 @@ class PlayedShape(private val player: Player, private val shape: Shape) {
       if (shape.beats(playedShapeOfOpponent.shape)) Some(player) else Some(playedShapeOfOpponent.player)
   }
 
-  def getPlayer = player;
+  def getPlayer: Player = player
 
-  override def toString(): String = s"${player.getPlayerName}: ${shape}"
+  override def toString: String = s"${player.getPlayerName}: $shape"
 
 }

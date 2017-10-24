@@ -1,4 +1,4 @@
-import RockPaperScissorsContext._
+import rockPaperScissorsContext._
 
 object Main extends App{
   println("Project test")
@@ -7,6 +7,6 @@ object Main extends App{
   val playedShape1 = new PlayedShape(player1, Rock)
   val playedShape2 = new PlayedShape(player2, Paper)
 
-  val turns = new Turn(None).addPlayedShape(playedShape1).addPlayedShape(playedShape2).addPlayedShape(playedShape2).addPlayedShape(playedShape1)
+  val turns = new Turn(1, None).addPlayedShape(playedShape1).addPlayedShape(playedShape2).addPlayedShape(playedShape2).addPlayedShape(playedShape1)
   println(turns.toString)
 }
