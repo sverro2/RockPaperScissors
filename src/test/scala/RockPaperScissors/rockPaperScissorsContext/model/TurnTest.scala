@@ -1,10 +1,11 @@
-package rockPaperScissorsContext
+package RockPaperScissors.rockPaperScissorsContext
 
 import org.scalatest.FunSuite
+import RockPaperScissors.rockPaperScissorsContext.model._
 
 class TurnTest extends FunSuite {
-  val player1 = new Player("Player 1")
-  val player2 = new Player("Player 2")
+  val player1 = new HumanPlayer("Player 1")
+  val player2 = new HumanPlayer("Player 2")
   val playedShape1 = new PlayedShape(player1, Rock)
   val playedShape2 = new PlayedShape(player2, Paper)
 

@@ -1,4 +1,4 @@
-package rockPaperScissorsContext
+package rockPaperScissorsContext.model
 
 class Turn( amountOfTurnsLeft: Int,
             private val previous: Option[Turn] = None,

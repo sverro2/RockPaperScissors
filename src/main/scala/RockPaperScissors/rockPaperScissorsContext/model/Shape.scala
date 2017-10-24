@@ -1,4 +1,4 @@
-package rockPaperScissorsContext
+package rockPaperScissorsContext.model
 
 abstract class Shape {
   def beats(shape: Shape): Boolean

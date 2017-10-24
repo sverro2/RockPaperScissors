@@ -1,4 +1,4 @@
-package rockPaperScissorsContext
+package rockPaperScissorsContext.model
 
 class PlayedShape(private val player: Player, private val shape: Shape) {
 

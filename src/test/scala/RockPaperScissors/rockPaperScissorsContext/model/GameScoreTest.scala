@@ -1,10 +1,11 @@
-package rockPaperScissorsContext
+package RockPaperScissors.rockPaperScissorsContext
 
 import org.scalatest.FunSuite
+import RockPaperScissors.rockPaperScissorsContext.model.{GameScore, HumanPlayer}
 
 class GameScoreTest extends FunSuite {
-  val playerOne = new Player("Player 1")
-  val playerTwo = new Player("Player 2")
+  val playerOne = new HumanPlayer("Player 1")
+  val playerTwo = new HumanPlayer("Player 2")
 
   test("Adds one to first player") {
     val gameScore = new GameScore(playerOne -> 0, playerTwo -> 0).addToPlayerOne()
