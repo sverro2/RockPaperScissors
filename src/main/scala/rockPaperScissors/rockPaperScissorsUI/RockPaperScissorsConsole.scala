@@ -83,7 +83,7 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
 
   override def playShape(input: String): Unit = {
     val shape =
-      if(input.matches("(?i)(.*r.*)")) PlayableShape.Rock
+      if(input.matches("(?i)([^s]*r.*)")) PlayableShape.Rock
       else if(input.matches("(?i)(.*p.*)")) PlayableShape.Paper
       else PlayableShape.Scissors
 
