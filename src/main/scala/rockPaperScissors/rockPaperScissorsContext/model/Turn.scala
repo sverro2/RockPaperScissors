@@ -3,7 +3,7 @@ package rockPaperScissors.rockPaperScissorsContext.model
 import rockPaperScissors.util.EventBus
 import rockPaperScissors.messages.events.{GameHadAWinner, GameWasADraw}
 
-class Turn( amountOfTurnsLeft: Int,
+class Turn( val amountOfTurnsLeft: Int,
             private val previous: Option[Turn] = None,
             playedShape1: Option[PlayedShape] = None,
             playedShape2: Option[PlayedShape] = None ) {
@@ -63,7 +63,7 @@ class Turn( amountOfTurnsLeft: Int,
 
   def isCompleted: Boolean = playedShape1.isDefined && playedShape2.isDefined
 
-  def isInLastTurn: Boolean = amountOfTurnsLeft == 1
+  def isInLastTurn: Boolean = amountOfTurnsLeft <= 1
 
   def allTurnsCompleted: Boolean = isCompleted && isInLastTurn
 

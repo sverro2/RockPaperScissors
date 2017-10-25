@@ -5,6 +5,7 @@ import rockPaperScissors.messages.events.PlayerPlayedShape
 
 class Game(playerOne: Player, playerTwo: Player, var turns: Turn = new Turn(1)) {
   require(playerOne.getName != playerTwo.getName)
+  require(turns.amountOfTurnsLeft > 0)
 
   def playShape(playedShape: PlayerPlayedShape): Unit = {
     val player = convertPlayerNameToPlayer(playedShape.getPlayer)
