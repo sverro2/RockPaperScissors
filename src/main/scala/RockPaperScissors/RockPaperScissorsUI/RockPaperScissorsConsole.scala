@@ -2,7 +2,7 @@ package RockPaperScissors.RockPaperScissorsUI
 
 import RockPaperScissors.Util.{Actor, EventBus, PlayableShape}
 import RockPaperScissors.messages.Commands.{CreateNewGame, GameType, PlayShape}
-import RockPaperScissors.messages.Events.PlayerPlayedShape
+import RockPaperScissors.messages.Events.{PlayerPlayedShape, TurnHadWinner, TurnWasADraw}
 
 class RockPaperScissorsConsole( val playerName: String = "You", val opponentName: String = "I") extends Actor with Console {
 
@@ -10,7 +10,8 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
 
   val consoleStates: Map[ConsoleStates.Value, ConsoleState] =
     Map(ConsoleStates.CreateGame -> new ConsoleState("What kind of game do you like to play?", GameTypeAction :: defaultActions),
-        ConsoleStates.AmountOfTurns -> new ConsoleState("Of how many turns do you want your game to consist?", AmountOfTurnsAction :: defaultActions))
+        ConsoleStates.AmountOfTurns -> new ConsoleState("Of how many turns do you want your game to consist?", AmountOfTurnsAction :: defaultActions),
+        ConsoleStates.PlayShape -> new ConsoleState("What shape to you want to play this turn?", PlayShapeAction :: defaultActions))
 
   def start(): Unit = {
     EventBus.connect(this)
@@ -23,8 +24,14 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
   }
 
   override def receiveMessage(message: Any): Unit = message match {
-    case message: PlayShape => println("You now have to play something...")
-    case _ => Unit
+    case message: PlayShape =>
+      inputLoop(consoleStates(ConsoleStates.PlayShape))
+    case message: TurnWasADraw =>
+      println("Both players played " + shapeToString(message.playableShape))
+    case message: TurnHadWinner =>
+      println(message.winnerName +" won the turn " + shapeToString(message.winningShape) +
+        " beats " + shapeToString(message.losingShape))
+    case _ =>
   }
 
   def welcomePlayer(): Unit = {
@@ -79,11 +86,17 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
     EventBus.sent(new PlayerPlayedShape(playerName, shape))
   }
 
+  def shapeToString(shape: PlayableShape.Value): String = shape match {
+    case PlayableShape.Rock => "Rock"
+    case PlayableShape.Paper => "Paper"
+    case PlayableShape.Scissors => "Scissors"
+  }
+
   def endGame(): Unit = {
     println("The game has ended...")
   }
 }
 
 object ConsoleStates extends Enumeration {
-  val CreateGame, AmountOfTurns, GetShape = Value
+  val CreateGame, AmountOfTurns, PlayShape = Value
 }

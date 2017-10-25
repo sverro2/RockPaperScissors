@@ -36,4 +36,12 @@ class ShapeTest extends FunSuite {
     assert(Paper != Rock === true)
   }
 
+  test("Paper is winner of Rock") {
+    assert(Paper.winningShape(Rock) === Paper)
+  }
+
+  test("Rock is loser of Paper") {
+    assert(Paper.losingShape(Rock) === Rock)
+  }
+
 }

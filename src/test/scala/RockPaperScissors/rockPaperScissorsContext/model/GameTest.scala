@@ -42,4 +42,6 @@ class GameTest extends FunSuite with BeforeAndAfterAll{
       new Game(playerOne, playerOne)
     }
   }
+
+  //check when events have been sent score/ turn / not when not necessary
 }

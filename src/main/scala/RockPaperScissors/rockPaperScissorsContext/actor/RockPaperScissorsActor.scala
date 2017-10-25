@@ -23,12 +23,12 @@ object RockPaperScissorsActor extends Actor{
     if(currentGame.isDefined) currentGame.get.playShape(message)
 
   def initializeGame(message: CreateNewGame): Unit = {
-    val secondPlayer = new NPC(message.getPlayerTwoName)
+    val secondPlayer = new NPC(message.playerTwoName)
     val firstPlayer =
-      if (message.getGameType == GameType.PlayerVsComputer) new HumanPlayer(message.getPlayerOneName)
-      else new NPC(message.getPlayerOneName)
+      if (message.gameType == GameType.PlayerVsComputer) new HumanPlayer(message.playerOneName)
+      else new NPC(message.playerOneName)
 
-    val firstTurn = new Turn(message.getAmountOfTurns)
+    val firstTurn = new Turn(message.amountOfTurns)
 
     val game = new Game(firstPlayer, secondPlayer, firstTurn)
 

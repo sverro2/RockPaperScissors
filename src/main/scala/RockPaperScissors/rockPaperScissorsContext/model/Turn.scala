@@ -24,16 +24,16 @@ class Turn( amountOfTurnsLeft: Int,
     getAmountOfTurnsAcc(this, 1)
   }
 
-  def calculateWinnerOfTurn(): Option[Player] = {
+  def calculateWinnerOfTurn(silently: Boolean = false): Option[Player] = {
     if (!isCompleted) throw new IllegalStateException("Can't calculate winner as long as the turn is not completed")
-    else playedShape1.get.getWinner(playedShape2.get)
+    else playedShape1.get.calculateWinner(playedShape2.get, silently)
   }
 
   def calculateTotalScore(): GameScore = {
     if (!isCompleted) throw new IllegalStateException("Can't calculate total score as long as the turn is not completed")
 
     def getTotalScoreAcc(gameScore: GameScore, currentTurn: Turn): GameScore = {
-      val updatedGameScore = gameScore.addToPlayerScore(currentTurn.calculateWinnerOfTurn())
+      val updatedGameScore = gameScore.addToPlayerScore(currentTurn.calculateWinnerOfTurn(true))
 
       if(currentTurn.previous.isEmpty) updatedGameScore
       else getTotalScoreAcc(updatedGameScore, currentTurn.previous.get)
