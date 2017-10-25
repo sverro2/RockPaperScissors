@@ -9,11 +9,11 @@ abstract class ConsoleAction {
 
   def matches(input: String): Boolean = input.matches(matcher)
 
-  def action(console: Console): Unit
+  def action(console: Console, consoleStatus: ConsoleStatus, input: String): Unit
 
-  def trigger(console: Console, input: String): Boolean = {
+  def trigger(console: Console, consoleStatus: ConsoleStatus, input: String): Boolean = {
     val isMatching = matches(input)
-    if(isMatching) action(console)
+    if(isMatching) action(console, consoleStatus, input)
 
     isMatching
   }
