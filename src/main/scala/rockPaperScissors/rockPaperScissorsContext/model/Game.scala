@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.model
 
-import rockPaperScissors.Util.PlayableShape
+import rockPaperScissors.util.PlayableShape
 import rockPaperScissors.messages.events.PlayerPlayedShape
 
 class Game(playerOne: Player, playerTwo: Player, var turns: Turn = new Turn(1)) {

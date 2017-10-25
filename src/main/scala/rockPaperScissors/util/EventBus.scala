@@ -1,4 +1,4 @@
-package rockPaperScissors.Util
+package rockPaperScissors.util
 
 object EventBus {
   var listeners: List[Actor] = Nil

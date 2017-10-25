@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.model
 
-import rockPaperScissors.Util.PlayableShape
+import rockPaperScissors.util.PlayableShape
 import rockPaperScissors.messages.events.{PlayerPlayedShape, TurnHadWinner, TurnWasADraw}
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
 

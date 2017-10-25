@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.model
 
-import rockPaperScissors.Util.PlayableShape
+import rockPaperScissors.util.PlayableShape
 
 object ConvertToPlayableShape {
   def apply(shape: Shape): PlayableShape.Value =

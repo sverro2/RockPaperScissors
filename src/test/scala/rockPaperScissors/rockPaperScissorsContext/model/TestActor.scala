@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.model
 
-import rockPaperScissors.Util.{Actor, EventBus}
+import rockPaperScissors.util.{Actor, EventBus}
 
 class TestActor(testFunc: Any => Unit) extends Actor {
   {

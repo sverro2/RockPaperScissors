@@ -1,5 +1,5 @@
 package rockPaperScissors.messages.events
 
-import rockPaperScissors.Util.PlayableShape
+import rockPaperScissors.util.PlayableShape
 
 class TurnWasADraw(val playableShape: PlayableShape.Value) { }

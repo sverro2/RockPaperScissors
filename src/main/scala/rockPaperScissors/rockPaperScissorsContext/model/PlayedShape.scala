@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.model
 
-import rockPaperScissors.Util.EventBus
+import rockPaperScissors.util.EventBus
 import rockPaperScissors.messages.events.{TurnHadWinner, TurnWasADraw}
 
 class PlayedShape(private val player: Player, private val shape: Shape) {

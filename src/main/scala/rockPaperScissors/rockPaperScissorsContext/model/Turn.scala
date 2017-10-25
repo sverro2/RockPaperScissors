@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.model
 
-import rockPaperScissors.Util.EventBus
+import rockPaperScissors.util.EventBus
 import rockPaperScissors.messages.events.{GameHadAWinner, GameWasADraw}
 
 class Turn( amountOfTurnsLeft: Int,

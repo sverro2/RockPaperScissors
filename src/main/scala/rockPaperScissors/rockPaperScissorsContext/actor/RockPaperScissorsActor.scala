@@ -1,6 +1,6 @@
 package rockPaperScissors.rockPaperScissorsContext.actor
 
-import rockPaperScissors.Util.{Actor, EventBus}
+import rockPaperScissors.util.{Actor, EventBus}
 import rockPaperScissors.messages.Commands.{CreateNewGame, GameType}
 import rockPaperScissors.messages.events.PlayerPlayedShape
 import rockPaperScissors.rockPaperScissorsContext.model._

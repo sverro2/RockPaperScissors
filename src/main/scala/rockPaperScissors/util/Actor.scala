@@ -1,4 +1,4 @@
-package rockPaperScissors.Util
+package rockPaperScissors.util
 
 trait Actor {
   def receiveMessage(message: Any): Unit
