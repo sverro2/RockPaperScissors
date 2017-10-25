@@ -28,6 +28,7 @@ class RockPaperScissorsConsoleTest extends FunSuite {
     })
 
     new RockPaperScissorsConsole().playShape("PaPer")
+    assert(playedPaper === true)
   }
 
   test("Play scissors") {
@@ -39,6 +40,7 @@ class RockPaperScissorsConsoleTest extends FunSuite {
     })
 
     new RockPaperScissorsConsole().playShape("SCissoRS")
+    assert(playedScissors === true)
   }
 
 }
