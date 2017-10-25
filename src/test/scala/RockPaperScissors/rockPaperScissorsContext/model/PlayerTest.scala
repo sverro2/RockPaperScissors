@@ -29,7 +29,7 @@ class PlayerTest extends FunSuite {
     var succeeded = false
     val playerName = "Morty"
 
-    new TestActor(message => message match {
+    new TestActor(_ match {
       case message: PlayShape => succeeded = message.getPlayerName == playerName
       case _ =>
     })

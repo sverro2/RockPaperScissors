@@ -33,7 +33,7 @@ object RockPaperScissorsActor extends Actor{
     val game = new Game(firstPlayer, secondPlayer, firstTurn)
 
     currentGame = Some(game)
-    currentGame.get.startTurn()
+    currentGame.get.startNextTurn()
   }
 
 

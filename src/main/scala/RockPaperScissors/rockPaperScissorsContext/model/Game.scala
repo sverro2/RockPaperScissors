@@ -12,10 +12,13 @@ class Game(playerOne: Player, playerTwo: Player, var turns: Turn = new Turn(1)) 
 
     turns = turns.addPlayedShape(new PlayedShape(player, shape))
 
-    if(!turns.allTurnsCompleted && turns.isCompleted) {
+    if(turns.isCompleted) {
       turns.calculateWinnerOfTurn()
-      startTurn()
-    }else if(turns.allTurnsCompleted){
+    }
+
+    if(!turns.allTurnsCompleted && turns.isCompleted)
+      startNextTurn()
+    else if(turns.allTurnsCompleted){
       turns.calculateTotalScore()
     }
   }
@@ -31,7 +34,7 @@ class Game(playerOne: Player, playerTwo: Player, var turns: Turn = new Turn(1)) 
   def convertPlayerNameToPlayer(playerName: String): Player =
     if (playerName == playerOne.getName) playerOne else playerTwo
 
-  def startTurn(): Unit = {
+  def startNextTurn(): Unit = {
     playerOne.play()
     playerTwo.play()
   }

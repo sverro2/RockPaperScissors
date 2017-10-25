@@ -2,7 +2,7 @@ package RockPaperScissors.RockPaperScissorsUI
 
 import RockPaperScissors.Util.{Actor, EventBus, PlayableShape}
 import RockPaperScissors.messages.Commands.{CreateNewGame, GameType, PlayShape}
-import RockPaperScissors.messages.Events.{PlayerPlayedShape, TurnHadWinner, TurnWasADraw}
+import RockPaperScissors.messages.Events._
 
 class RockPaperScissorsConsole( val playerName: String = "You", val opponentName: String = "I") extends Actor with Console {
 
@@ -16,7 +16,7 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
   def start(): Unit = {
     EventBus.connect(this)
     welcomePlayer()
-    inputLoop(consoleStates(ConsoleStates.CreateGame))
+    startNewGame()
   }
 
   def exitNow(): Unit = {
@@ -31,6 +31,10 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
     case message: TurnHadWinner =>
       println(message.winnerName +" won the turn " + shapeToString(message.winningShape) +
         " beats " + shapeToString(message.losingShape))
+    case message: GameWasADraw =>
+      println("The game ended in a draw..."); endGame()
+    case message: GameHadAWinner =>
+      println(s"'${message.winnerName}' has won vs '${message.loserName}' with a score of (${message.winnerScore} - ${message.loserScore})"); endGame()
     case _ =>
   }
 
@@ -92,8 +96,13 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
     case PlayableShape.Scissors => "Scissors"
   }
 
+  def startNewGame(): Unit = {
+    inputLoop(consoleStates(ConsoleStates.CreateGame))
+  }
+
   def endGame(): Unit = {
-    println("The game has ended...")
+    println("The game has ended. You can play another game if you wish...")
+    startNewGame()
   }
 }
 

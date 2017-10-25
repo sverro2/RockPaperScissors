@@ -1,5 +1,8 @@
 package RockPaperScissors.rockPaperScissorsContext.model
 
+import RockPaperScissors.Util.EventBus
+import RockPaperScissors.messages.Events.{GameHadAWinner, GameWasADraw}
+
 class Turn( amountOfTurnsLeft: Int,
             private val previous: Option[Turn] = None,
             playedShape1: Option[PlayedShape] = None,
@@ -39,7 +42,23 @@ class Turn( amountOfTurnsLeft: Int,
       else getTotalScoreAcc(updatedGameScore, currentTurn.previous.get)
     }
 
-    getTotalScoreAcc(new GameScore(playedShape1.get.getPlayer -> 0, playedShape2.get.getPlayer -> 0), this)
+    val score = getTotalScoreAcc(new GameScore(playedShape1.get.getPlayer -> 0, playedShape2.get.getPlayer -> 0), this)
+    sentScoreMessage(score)
+
+    score
+  }
+
+  def sentScoreMessage(gameScore: GameScore): Unit = {
+    if(gameScore.getScoresAreEqual) {
+      EventBus.sent(new GameWasADraw())
+    }else {
+      val winningName = gameScore.getWinningPlayer._1.getName
+      val winningScore = gameScore.getWinningPlayer._2
+      val losingName = gameScore.getLosingPlayer._1.getName
+      var losingScore = gameScore.getLosingPlayer._2
+
+      EventBus.sent(new GameHadAWinner(winningName, winningScore, losingName, losingScore))
+    }
   }
 
   def isCompleted: Boolean = playedShape1.isDefined && playedShape2.isDefined

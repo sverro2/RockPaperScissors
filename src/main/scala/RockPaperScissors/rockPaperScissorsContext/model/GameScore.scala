@@ -4,6 +4,12 @@ class GameScore(playerOneScore: (Player, Int), playerTwoScore: (Player, Int)) {
 
   def getPlayerScore(player: Player): Int = if(player == playerOneScore._1) playerOneScore._2 else playerTwoScore._2
 
+  def getScoresAreEqual: Boolean = playerOneScore._2 == playerTwoScore._2
+
+  def getWinningPlayer: (Player, Int) = if(playerOneScore._2 > playerTwoScore._2) playerOneScore else playerTwoScore
+
+  def getLosingPlayer: (Player, Int) = if(playerOneScore._2 > playerTwoScore._2) playerTwoScore else playerOneScore
+
   def addToPlayerScore(player: Option[Player]): GameScore =
     if(player.isDefined)
       if(player.get == playerOneScore._1) addToPlayerOne()
