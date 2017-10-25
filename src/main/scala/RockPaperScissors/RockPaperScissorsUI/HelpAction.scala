@@ -7,5 +7,5 @@ object HelpAction extends ConsoleAction{
 
   override def matcher: String = "(?i)(help)"
 
-  override def action(console: Console, consoleStatus: ConsoleStatus, input: String): Unit = console.askHelp(consoleStatus)
+  override def action(console: Console, consoleState: ConsoleState, input: String): Unit = console.askHelp(consoleState)
 }

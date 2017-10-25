@@ -7,5 +7,5 @@ object GameTypeAction extends ConsoleAction {
 
   override def matcher: String = "(?i)(.*p.*c.*|.*c.*c.*)"
 
-  override def action(console: Console, consoleStatus: ConsoleStatus, input: String): Unit = console.saveGameType(consoleStatus, input)
+  override def action(console: Console, consoleState: ConsoleState, input: String): Unit = console.saveGameType(consoleState, input)
 }

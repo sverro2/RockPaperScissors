@@ -1,26 +1,25 @@
 package RockPaperScissors.RockPaperScissorsUI
 
-import RockPaperScissors.Util.{Actor, EventBus}
+import RockPaperScissors.Util.{Actor, EventBus, PlayableShape}
 import RockPaperScissors.messages.Commands.{CreateNewGame, GameType, PlayShape}
+import RockPaperScissors.messages.Events.PlayerPlayedShape
 
-class RockPaperScissorsConsole( val playerName: String = "You",
-                                val opponentName: String = "I"
-                              ) extends Actor with Console {
+class RockPaperScissorsConsole( val playerName: String = "You", val opponentName: String = "I") extends Actor with Console {
 
   val defaultActions: List[ConsoleAction] = HelpAction :: ExitAction :: Nil
 
-  val consoleStatuses: Map[Status.Value, ConsoleStatus] =
-    Map(Status.CreateGame -> new ConsoleStatus("What kind of game do you like to play?", GameTypeAction :: defaultActions),
-        Status.AmountOfTurns -> new ConsoleStatus("Of how many turns do you want your game to consist?", AmountOfTurnsAction :: defaultActions))
+  val consoleStates: Map[ConsoleStates.Value, ConsoleState] =
+    Map(ConsoleStates.CreateGame -> new ConsoleState("What kind of game do you like to play?", GameTypeAction :: defaultActions),
+        ConsoleStates.AmountOfTurns -> new ConsoleState("Of how many turns do you want your game to consist?", AmountOfTurnsAction :: defaultActions))
 
   def start(): Unit = {
     EventBus.connect(this)
     welcomePlayer()
-    inputLoop(consoleStatuses(Status.CreateGame))
+    inputLoop(consoleStates(ConsoleStates.CreateGame))
   }
 
   def exitNow(): Unit = {
-    //no special actions when exiting
+    //do nothing, this game ends
   }
 
   override def receiveMessage(message: Any): Unit = message match {
@@ -34,39 +33,50 @@ class RockPaperScissorsConsole( val playerName: String = "You",
     println("To exit, use the command \"exit\"")
   }
 
-  override def askHelp(currentStatus: ConsoleStatus): Unit = {
+  override def askHelp(currentState: ConsoleState): Unit = {
     println("Showing help:")
 
-    val currentlyAvailableCommands = currentStatus.commands
+    val currentlyAvailableCommands = currentState.commands
     currentlyAvailableCommands.foreach(item => printf("%s - %s\n", item.name, item.description))
-    inputLoop(currentStatus)
+    inputLoop(currentState)
   }
 
-  def getAvailableCommands(commands: List[ConsoleAction]): String = commands.map(_.name) mkString(" - ")
+  def getAvailableCommands(commands: List[ConsoleAction]): String = commands.map(_.name) mkString " - "
 
-  def inputLoop(currentStatus: ConsoleStatus): Unit = {
-    printf("%s [%s]\n", currentStatus.questionToPlayer, getAvailableCommands(currentStatus.commands))
+  def inputLoop(currentState: ConsoleState): Unit = {
+    printf("%s [%s]\n", currentState.questionToPlayer, getAvailableCommands(currentState.commands))
     val userInput = scala.io.StdIn.readLine()
-    val inputFound = currentStatus.commands.exists(_.trigger(this, currentStatus, userInput))
+    val inputFound = currentState.commands.exists(_.trigger(this, currentState, userInput))
 
     if(!inputFound) {
       println(s"Input '$userInput' was not recognized... (ask HELP if you need help)")
 
       //try again
-      inputLoop(currentStatus)
+      inputLoop(currentState)
     }
   }
 
-  override def saveGameType(currentStatus: ConsoleStatus, input: String): Unit = {
+  override def saveGameType(currentState: ConsoleState, input: String): Unit = {
     val gameType = if (input.matches("(?i)(.*p.*c.*)")) GameType.PlayerVsComputer else GameType.ComputerVsComputer
 
-    val nextStatus = consoleStatuses(Status.AmountOfTurns)
-    inputLoop(new ConsoleStatus(nextStatus.questionToPlayer, nextStatus.commands, Some(gameType)))
+    val nextState = consoleStates(ConsoleStates.AmountOfTurns)
+
+    //start new
+    inputLoop(new ConsoleState(nextState.questionToPlayer, nextState.commands, Some(gameType)))
   }
 
-  override def saveAmountOfTurns(currentStatus: ConsoleStatus, input: String): Unit = {
-    val gameType = currentStatus.data.get.asInstanceOf[GameType.Value]
+  override def saveAmountOfTurns(currentState: ConsoleState, input: String): Unit = {
+    val gameType = currentState.data.get.asInstanceOf[GameType.Value]
     EventBus.sent(new CreateNewGame(gameType, playerName, opponentName, input.toInt))
+  }
+
+  override def playShape(input: String): Unit = {
+    val shape =
+      if(input.matches("(?i)(.*r.*)")) PlayableShape.Rock
+      else if(input.matches("(?i)(.*p.*)")) PlayableShape.Paper
+      else PlayableShape.Scissors
+
+    EventBus.sent(new PlayerPlayedShape(playerName, shape))
   }
 
   def endGame(): Unit = {
@@ -74,6 +84,6 @@ class RockPaperScissorsConsole( val playerName: String = "You",
   }
 }
 
-object Status extends Enumeration {
+object ConsoleStates extends Enumeration {
   val CreateGame, AmountOfTurns, GetShape = Value
 }

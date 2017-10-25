@@ -7,7 +7,7 @@ object ExitAction extends ConsoleAction{
 
   override def matcher: String = "(?i)(exit|close)"
 
-  override def action(console: Console, consoleStatus: ConsoleStatus, input: String) {
+  override def action(console: Console, consoleState: ConsoleState, input: String) {
     println("Exiting application now... Bye!")
     console.exitNow()
   }

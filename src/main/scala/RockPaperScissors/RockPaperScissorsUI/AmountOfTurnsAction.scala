@@ -7,5 +7,5 @@ object AmountOfTurnsAction extends ConsoleAction{
 
   override def matcher: String = "\\d*"
 
-  override def action(console: Console, consoleStatus: ConsoleStatus,  input: String): Unit = console.saveAmountOfTurns(consoleStatus, input)
+  override def action(console: Console, consoleState: ConsoleState, input: String): Unit = console.saveAmountOfTurns(consoleState, input)
 }
