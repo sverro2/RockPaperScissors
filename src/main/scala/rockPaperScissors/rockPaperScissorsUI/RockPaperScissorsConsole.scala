@@ -11,7 +11,7 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
   val consoleStates: Map[ConsoleStates.Value, ConsoleState] =
     Map(ConsoleStates.CreateGame -> new ConsoleState("What kind of game do you like to play?", GameTypeAction :: defaultActions),
         ConsoleStates.AmountOfTurns -> new ConsoleState("Of how many turns do you want your game to consist?", AmountOfTurnsAction :: defaultActions),
-        ConsoleStates.PlayShape -> new ConsoleState("What shape to you want to play this turn?", PlayShapeAction :: defaultActions))
+        ConsoleStates.PlayShape -> new ConsoleState("What shape do you want to play this turn?", PlayShapeAction :: defaultActions))
 
   def start(): Unit = {
     EventBus.connect(this)
@@ -29,7 +29,7 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
     case message: TurnWasADraw =>
       println("Both players played " + shapeToString(message.playableShape))
     case message: TurnHadWinner =>
-      println(message.winnerName +" won the turn " + shapeToString(message.winningShape) +
+      println(message.winnerName +" won the turn: " + shapeToString(message.winningShape) +
         " beats " + shapeToString(message.losingShape))
     case message: GameWasADraw =>
       println("The game ended in a draw..."); endGame()
