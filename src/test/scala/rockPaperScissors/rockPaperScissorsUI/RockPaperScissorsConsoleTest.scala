@@ -1,6 +1,7 @@
 package rockPaperScissors.rockPaperScissorsUI
 
 import org.scalatest.FunSuite
+import rockPaperScissors.messages.Commands.{CreateNewGame, GameType}
 import rockPaperScissors.messages.events.PlayerPlayedShape
 import rockPaperScissors.rockPaperScissorsContext.model.TestActor
 import rockPaperScissors.util.PlayableShape
@@ -41,6 +42,22 @@ class RockPaperScissorsConsoleTest extends FunSuite {
 
     new RockPaperScissorsConsole().playShape("SCissoRS")
     assert(playedScissors === true)
+  }
+
+  test("Player vs Computer") {
+    val console = new RockPaperScissorsConsole()
+
+    var playerVsComputer = console.gameTypeStringToGameType("plAyer vs COMputer")
+
+    assert(playerVsComputer === GameType.PlayerVsComputer)
+  }
+
+  test("Computer vs Computer") {
+    val console = new RockPaperScissorsConsole()
+
+    var computerVsComputer = console.gameTypeStringToGameType("COmPUTER vs COMputer")
+
+    assert(computerVsComputer === GameType.ComputerVsComputer)
   }
 
 }

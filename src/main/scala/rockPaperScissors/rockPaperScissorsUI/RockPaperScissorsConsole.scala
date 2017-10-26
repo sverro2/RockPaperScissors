@@ -67,8 +67,11 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
     }
   }
 
+  def gameTypeStringToGameType(input: String): GameType.Value =
+    if (input.matches("(?i)([^c]*p.*c.*)")) GameType.PlayerVsComputer else GameType.ComputerVsComputer
+
   override def saveGameType(currentState: ConsoleState, input: String): Unit = {
-    val gameType = if (input.matches("(?i)([^c]*p.*c.*)")) GameType.PlayerVsComputer else GameType.ComputerVsComputer
+    val gameType = gameTypeStringToGameType(input)
 
     val nextState = consoleStates(ConsoleStates.AmountOfTurns)
 
@@ -81,11 +84,13 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
     EventBus.sent(new CreateNewGame(gameType, playerName, opponentName, input.toInt))
   }
 
+  def shapeStringToPlayableShape(input: String): PlayableShape.Value =
+    if(input.matches("(?i)(.*p.*)")) PlayableShape.Paper
+    else if(input.matches("(?i)([^s]*r*)")) PlayableShape.Rock
+    else PlayableShape.Scissors
+
   override def playShape(input: String): Unit = {
-    val shape =
-      if(input.matches("(?i)(.*p.*)")) PlayableShape.Paper
-      else if(input.matches("(?i)([^s]*r*)")) PlayableShape.Rock
-      else PlayableShape.Scissors
+    val shape = shapeStringToPlayableShape(input)
 
     EventBus.sent(new PlayerPlayedShape(playerName, shape))
   }
