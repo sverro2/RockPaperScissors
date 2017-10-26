@@ -68,7 +68,7 @@ class RockPaperScissorsConsole( val playerName: String = "You", val opponentName
   }
 
   override def saveGameType(currentState: ConsoleState, input: String): Unit = {
-    val gameType = if (input.matches("(?i)(.*p.*c.*)")) GameType.PlayerVsComputer else GameType.ComputerVsComputer
+    val gameType = if (input.matches("(?i)([^c]*p.*c.*)")) GameType.PlayerVsComputer else GameType.ComputerVsComputer
 
     val nextState = consoleStates(ConsoleStates.AmountOfTurns)
 
